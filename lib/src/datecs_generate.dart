@@ -80,6 +80,10 @@ class DatecsGenerate{
     args.add("img%2021"+ base64);
   }
 
+  imageNoResize(String base64){
+    args.add("img%noresize"+ base64);
+  }
+
   row(List<DatecsColumn> cols){
     final isSumValid = cols.fold(0, (int sum, col) => sum + col.width) == getDivider();
     if (!isSumValid) {

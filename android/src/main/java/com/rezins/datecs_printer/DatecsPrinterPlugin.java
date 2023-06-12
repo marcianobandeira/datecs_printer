@@ -178,6 +178,31 @@ public class DatecsPrinterPlugin implements FlutterPlugin, MethodCallHandler {
               resized.recycle();
               mPrinter.printImage(argb, 300, 300, Printer.ALIGN_CENTER, true);
             }
+          }else if(args.get(i).contains("img%noresize")){
+            String[] split = args.get(i).split("%noresize");
+            String img = split[1];
+            if(android.os.Build.VERSION.SDK_INT >= 26){
+              byte[] decodedString = Base64.getDecoder().decode(img.getBytes("UTF-8"));
+              Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+              int inWidth = decodedByte.getWidth();
+              int inHeight = decodedByte.getHeight();
+              Bitmap resized = Bitmap.createScaledBitmap(decodedByte, inWidth, inHeight, true);
+              final int[] argb = new int[inWidth * inHeight];
+              resized.getPixels(argb, 0, inWidth, 0, 0, inWidth, inHeight);
+              resized.recycle();
+
+              mPrinter.printImage(argb, inWidth, inHeight, Printer.ALIGN_CENTER, true);
+            }else{
+              byte[] decodedString = android.util.Base64.decode(img, android.util.Base64.DEFAULT);
+              Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+              int inWidth = decodedByte.getWidth();
+              int inHeight = decodedByte.getHeight();
+              Bitmap resized = Bitmap.createScaledBitmap(decodedByte, inWidth, inHeight, true);
+              final int[] argb = new int[inWidth * inHeight];
+              resized.getPixels(argb, 0, inWidth, 0, 0, inWidth, inHeight);
+              resized.recycle();
+              mPrinter.printImage(argb, inWidth, inHeight, Printer.ALIGN_CENTER, true);
+            }
           }else{
             mPrinter.printTaggedText(args.get(i));
           }

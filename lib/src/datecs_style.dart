@@ -11,12 +11,12 @@ class DatecsStyle{
   DatecsStyle({this.bold = false, this.underline = false, this.italic = false, this.wide = false, this.align = DatecsAlign.left, this.size = DatecsSize.normal});
 
   const DatecsStyle.defaults({
-    this.bold: false,
-    this.underline: false,
-    this.italic: false,
-    this.wide: false,
-    this.align: DatecsAlign.left,
-    this.size: DatecsSize.normal
+    this.bold = false,
+    this.underline = false,
+    this.italic = false,
+    this.wide = false,
+    this.align = DatecsAlign.left,
+    this.size = DatecsSize.normal
   });
 
   DatecsStyle copyWith({
